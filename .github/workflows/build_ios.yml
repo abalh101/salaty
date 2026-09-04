@@ -1,0 +1,48 @@
+﻿name: Build iOS (Salaty)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: # Ermöglicht den manuellen Start über das GitHub-Webinterface
+
+jobs:
+  build-ios:
+    runs-on: macos-14 # Apple Silicon (M1/M2) Runner mit vorinstalliertem Xcode 15/16
+
+    steps:
+      - name: Quellcode auschecken
+        uses: actions/checkout@v4
+
+      - name: Flutter SDK einrichten
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter & Umgebung prüfen
+        run: flutter doctor -v
+
+      - name: Salaty Bootstrap ausführen
+        run: |
+          chmod +x tool/bootstrap.sh
+          ./tool/bootstrap.sh
+
+      - name: iOS App kompilieren (Release, Unsigned)
+        run: flutter build ios --release --no-codesign
+
+      - name: In .ipa packen (für Sideloading via Sideloadly/AltStore)
+        run: |
+          cd build/ios/iphoneos
+          mkdir Payload
+          cp -r Runner.app Payload/
+          zip -r -q Salaty.ipa Payload
+          echo "IPA erfolgreich erstellt."
+
+      - name: IPA als GitHub-Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: Salaty-iOS
+          path: build/ios/iphoneos/Salaty.ipa
+          retention-days: 7

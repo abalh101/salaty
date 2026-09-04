@@ -1,0 +1,40 @@
+name: salah_focus
+description: Prayer-first focus companion with local-first prayer tracking and safe distraction protection.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.13.0 <4.0.0"
+  flutter: ">=3.47.0"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_riverpod: ^3.4.2
+  go_router: ^17.3.0
+  dio: ^5.11.0
+  sqflite: ^2.4.3
+  path: ^1.9.1
+  shared_preferences: ^2.5.5
+  geolocator: ^14.0.3
+  geocoding: ^5.0.0
+  flutter_local_notifications: ^22.3.0
+  timezone: ^0.11.1
+  flutter_timezone: ^5.1.0
+  flutter_compass: ^0.8.1
+  intl: ^0.20.3
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

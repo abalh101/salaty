@@ -1,0 +1,31 @@
+SalahFocus MVP source package
+
+Implemented MVP areas:
+- Flutter/Riverpod/go_router application shell
+- DE/EN/AR localization and RTL-ready UI
+- onboarding with GPS/manual location
+- AlAdhan monthly prayer provider abstraction
+- profile-bound SQLite offline cache
+- five-prayer domain model and testable state machine
+- DST/IANA timezone handling
+- local prayer/grace/snooze/soft notifications
+- safe Android exact/inexact alarm fallback
+- Prayer Focus confirmation/snooze/skip/emergency unlock
+- Android safe in-app Focus fallback (no Accessibility/overlay hacks)
+- iOS FamilyControls/ManagedSettings/DeviceActivity bridge source
+- iOS Device Activity Monitor extension source + entitlement/plist templates
+- 90-minute native shield hard cap + rolling 48-hour iOS schedule
+- today/week/month tracker
+- Qibla bearing + compass fallback
+- settings for location/calculation/madhhab/high-latitude/adjustments/grace/snooze/focus/theme/language
+- source/unit/integration test suite
+- reproducible Android/iOS platform bootstrap and smoke checks
+- README, privacy, architecture and build notes
+
+Required before store submission:
+1. Run tool/bootstrap.sh (or tool/bootstrap.ps1) on Flutter 3.47+.
+2. Resolve any compiler/plugin issues found by flutter analyze/test on that workstation.
+3. Test real Android/iPhone devices.
+4. Configure release signing.
+5. For iOS app shielding, add/sign the Device Activity Monitor extension and obtain Apple Family Controls distribution entitlements.
+6. Replace default Flutter launcher branding with final licensed app icons before release.
