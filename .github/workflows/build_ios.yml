@@ -1,4 +1,4 @@
-﻿name: Build iOS (SalahFocus)
+﻿name: Build iOS (Salaty)
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       - name: Flutter & Umgebung prüfen
         run: flutter doctor -v
 
-      - name: SalahFocus Bootstrap ausführen
+      - name: Salaty Bootstrap ausführen
         run: |
           chmod +x tool/bootstrap.sh
           ./tool/bootstrap.sh || true
@@ -37,12 +37,12 @@ jobs:
           cd build/ios/iphoneos
           mkdir Payload
           cp -r Runner.app Payload/
-          zip -r -q SalahFocus.ipa Payload
+          zip -r -q Salaty.ipa Payload
           echo "IPA erfolgreich erstellt."
 
       - name: IPA als GitHub-Artefakt hochladen
         uses: actions/upload-artifact@v4
         with:
-          name: SalahFocus-iOS
-          path: build/ios/iphoneos/SalahFocus.ipa
+          name: Salaty-iOS
+          path: build/ios/iphoneos/Salaty.ipa
           retention-days: 7

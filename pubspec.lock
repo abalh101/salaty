@@ -256,7 +256,7 @@ packages:
     source: hosted
     version: "5.1.0"
   geocoding_darwin:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: geocoding_darwin
       sha256: "97552aa24f1453defc17e4d8e40b13ddf097e669c2edfa17ed86349cacdbc1ae"
