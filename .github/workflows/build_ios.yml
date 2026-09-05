@@ -31,7 +31,16 @@ jobs:
 
       - name: iOS App kompilieren (Release, Unsigned)
         run: |
+          # 1. Automatisches Signieren im Xcode-Projekt deaktivieren
           sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' ios/Runner.xcodeproj/project.pbxproj
+          
+          # 2. Strikte "Kein Signieren"-Regeln in die Flutter Config zwingen
+          echo "CODE_SIGNING_ALLOWED=NO" >> ios/Flutter/Release.xcconfig
+          echo "CODE_SIGNING_REQUIRED=NO" >> ios/Flutter/Release.xcconfig
+          echo "CODE_SIGN_IDENTITY=-" >> ios/Flutter/Release.xcconfig
+          echo "EXPANDED_CODE_SIGN_IDENTITY=-" >> ios/Flutter/Release.xcconfig
+          
+          # 3. Flutter Build starten
           flutter build ios --release --no-codesign
 
       - name: In .ipa packen (für Sideloading via Sideloadly/AltStore)
