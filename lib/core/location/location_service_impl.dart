@@ -5,7 +5,7 @@ import 'package:salah_focus/core/location/location_service.dart';
 import 'package:salah_focus/features/prayer_times/domain/user_location.dart';
 
 class LocationServiceImpl implements LocationService {
-  final Geocoding _geocoding = Geocoding();
+  // Zeile 8 (final Geocoding _geocoding = Geocoding();) wurde restlos entfernt, da in v3 nicht mehr benötigt
 
   @override
   Future<UserLocation> currentLocation(String deviceTimezoneId) async {
@@ -35,8 +35,9 @@ class LocationServiceImpl implements LocationService {
       String city = '';
       String country = '';
       try {
+        // Hier wurde _geocoding. entfernt
         final List<Placemark> placemarks =
-            await _geocoding.placemarkFromCoordinates(
+            await placemarkFromCoordinates(
           position.latitude,
           position.longitude,
         );
@@ -77,8 +78,9 @@ class LocationServiceImpl implements LocationService {
       throw const LocationException('Bitte Stadt und Land angeben.');
     }
     try {
+      // Hier wurde _geocoding. entfernt
       final List<Location> matches =
-          await _geocoding.locationFromAddress('$cleanedCity, $cleanedCountry');
+          await locationFromAddress('$cleanedCity, $cleanedCountry');
       if (matches.isEmpty) {
         throw const LocationException('Dieser Ort wurde nicht gefunden.');
       }
