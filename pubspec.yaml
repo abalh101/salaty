@@ -1,4 +1,4 @@
-name: salah_focus
+﻿name: salah_focus
 description: Prayer-first focus companion with local-first prayer tracking and safe distraction protection.
 publish_to: "none"
 version: 1.0.0+1
@@ -38,3 +38,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+
+dependency_overrides:
+  geocoding_darwin: any
+
