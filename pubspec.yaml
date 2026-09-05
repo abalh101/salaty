@@ -41,5 +41,5 @@ dev_dependencies:
 
 
 dependency_overrides:
-  geocoding_darwin: 1.0.2
+  geocoding_darwin: 1.0.0
   #geocoding_darwin: any
