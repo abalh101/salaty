@@ -5,11 +5,11 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-  workflow_dispatch: # Ermöglicht den manuellen Start über das GitHub-Webinterface
+  workflow_dispatch:
 
 jobs:
   build-ios:
-    runs-on: macos-14 # Apple Silicon (M1/M2) Runner mit vorinstalliertem Xcode 15/16
+    runs-on: macos-14
 
     steps:
       - name: Quellcode auschecken
@@ -30,13 +30,17 @@ jobs:
           ./tool/bootstrap.sh || true
 
       - name: iOS App kompilieren (Release, Unsigned)
-        run: flutter build ios --release --no-codesign
-
-      - name: In .ipa packen (für Sideloading via Sideloadly/AltStore)
         run: |
           sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' ios/Runner.xcodeproj/project.pbxproj
           flutter build ios --release --no-codesign
-          "
+
+      - name: In .ipa packen (für Sideloading via Sideloadly/AltStore)
+        run: |
+          cd build/ios/iphoneos
+          mkdir Payload
+          cp -r Runner.app Payload/
+          zip -r -q Salaty.ipa Payload
+          echo "IPA erfolgreich erstellt."
 
       - name: IPA als GitHub-Artefakt hochladen
         uses: actions/upload-artifact@v4
